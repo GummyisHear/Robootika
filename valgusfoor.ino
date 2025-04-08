@@ -1,11 +1,7 @@
 const int RED_PIN = 13;
-
 const int YELLOW_PIN = 12;
-
 const int GREEN_PIN = 11;
-
 const int DAY_PIN = 8;
-
 const int NIGHT_PIN = 7;
 
 void setup()
