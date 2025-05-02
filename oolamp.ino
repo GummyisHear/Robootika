@@ -1,37 +1,43 @@
-const int red1 = 13;
-const int blue1 = 12;
-const int green1 = 11;
+const int ledPins[] = {10, 9, 8};
+const int SensorPin = A0;
+const int treshold = 300;
 
-const int red2 = 10;
-const int blue2 = 9;
-const int green2 = 8;
-
-const int red3 = 7;
-const int blue3 = 6;
-const int green3 = 5;
-
-const int sensorPin = 0;
-
-void setup()
-{
-  pinMode(red1, OUTPUT);
-  pinMode(blue1, OUTPUT);
-  pinMode(green1, OUTPUT);
-  
-  pinMode(red2, OUTPUT);
-  pinMode(blue2, OUTPUT);
-  pinMode(green2, OUTPUT);
-  
-  pinMode(red3, OUTPUT);
-  pinMode(blue3, OUTPUT);
-  pinMode(green3, OUTPUT);
+int cycle = 0;
+ 
+void setup() {
   Serial.begin(9600);
+  for (int i = 0; i < 9; i++) {
+    pinMode(ledPins[i], OUTPUT);
+  }
 }
+ 
+void loop() {
+  lightShow();
+}
+ 
+void lightShow() {
+  int potValue = analogRead(SensorPin);
+  float rad = 0.024;
+  int brightness = map(potValue, treshold, 1023, 300, 255);
+ 
+  if (potValue < treshold) {
+    setRGB(0, 0, 0);
+    return;
+  } 
 
-void loop()
-{
-  int lightLevel = analogRead(sensorPin);
-  analogWrite(red1, lightLevel);
-
-  Serial.println(lightLevel);
+  cycle = (cycle + 1) % 255;
+  float c = cycle / 255.0 * M_PI;
+  int r = sin(c) * 255;
+  int g = sin(c) * 255;
+  int b = sin(c) * 255; 
+  Serial.println("C: " + String(c) + " R: " + String(r) + "G: " + String(g) + "B: " + String(b));
+  
+  setRGB(r, g, b);
+  delay(10);
+}
+ 
+void setRGB(int red, int green, int blue) {
+  analogWrite(ledPins[0], red);
+  analogWrite(ledPins[2], green);
+  analogWrite(ledPins[1], blue);
 }
