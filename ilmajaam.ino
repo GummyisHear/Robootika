@@ -32,7 +32,7 @@ void loop() {
 
     lightLevel = analogRead(lightPin);
     voltage = getVoltage(tempPin);
-	temperature = (voltage - 0.5) * 100.0;
+    temperature = (voltage - 0.5) * 100.0;
     degreesF = temperature * (9.0/5.0) + 32.0;
 
     lcd.clear();
@@ -53,7 +53,7 @@ void loop() {
 
     lcd.setCursor(0, 1);
     lcd.print("Light: ");
-    lcd.print(lightLevel);
+    lcd.print(1023-lightLevel);
     lcd.print(" lx");
   }
 
