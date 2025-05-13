@@ -4,7 +4,7 @@ LiquidCrystal lcd(12, 11, 5, 4, 3, 2);
 
 const int tempPin = A1;
 const int lightPin = A0;
-const int humidityPin = A3;
+const int humidityPin = A2;
 const int buzzerPin = 8;
 
 float temperature;
@@ -76,18 +76,6 @@ void loop() {
     }
 
     lastDangerState = danger;
-  }
-
-  if (millis() - lastEmojiShowTime >= emojiInterval) {
-    lastEmojiShowTime = millis();
-    lcd.clear();
-    lcd.setCursor(6, 0);
-    if (temperature > 25) {
-      lcd.print(":)");
-    } else {
-      lcd.print(":(");
-    }
-    delay(1000);
   }
 }
 
